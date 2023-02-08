@@ -1,0 +1,14 @@
+<div [ngClass]="{
+  'counter10': (counter === 10),
+  'counter-10': (counter === -10)
+}">
+  <h1>app component, counter : {{counter}}</h1>
+  <nav>
+    <ul>
+      <li class="link"><a routerLink="/up" routerLinkActive="active" ariaCurrentWhenActive="page">up page</a></li>
+      <li class="link"><a routerLink="/down" routerLinkActive="active" ariaCurrentWhenActive="page">down page</a></li>
+      <li class="link"><a routerLink="/reset" routerLinkActive="active" ariaCurrentWhenActive="page">reset page</a></li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
