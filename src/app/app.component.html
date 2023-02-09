@@ -1,8 +1,8 @@
 <div [ngClass]="{
-  'counter10': (counter === 10),
-  'counter-10': (counter === -10)
+  'counter10': ((counter$ | async) === 10),
+  'counter-10': ((counter$ | async) === -10)
 }">
-  <h1>app component, counter : {{counter}}</h1>
+  <h1>app component, counter : {{counter$ | async}}</h1>
   <nav>
     <ul>
       <li class="link"><a routerLink="/up" routerLinkActive="active" ariaCurrentWhenActive="page">up page</a></li>

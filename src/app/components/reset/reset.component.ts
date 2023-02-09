@@ -8,7 +8,7 @@ import { CounterService } from '../../services/counter.service';
 })
 
 export class ResetComponent {
-  birthdate: string = '';
+  birthdate = '';
 
   constructor(
     private counterService: CounterService,

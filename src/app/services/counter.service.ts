@@ -7,24 +7,24 @@ import * as moment from 'moment';
 })
 
 export class CounterService {
-  private currentCounter: number = parseInt(localStorage.getItem('counter') || '0');
-  private counterSubject = new BehaviorSubject<number>(this.currentCounter);
-  private x: number = 1;
+  private readonly localStorage__counter: string = 'counter';
+  private readonly ageMin__toReset: number = 18;
+  private readonly nbActions__toUpdateX: number = 30;
+
+  private counterSubject: BehaviorSubject<number> = new BehaviorSubject<number>(parseInt(localStorage.getItem(this.localStorage__counter) || '0'));
+  private x = 1;
   private nbActions = 0;
 
   public counter$ = this.counterSubject.asObservable();
 
-  constructor() {
-  }
-
   increment() {
     this.actionUpOrDownTriggered();
-    this.setCurrentValue(this.currentCounter + this.x);
+    this.setCurrentValue(this.counterSubject.getValue() + this.x);
   }
 
   decrement() {
     this.actionUpOrDownTriggered();
-    this.setCurrentValue(this.currentCounter - this.x);
+    this.setCurrentValue(this.counterSubject.getValue() - this.x);
   }
 
   resetCounter() {
@@ -34,20 +34,19 @@ export class CounterService {
   validateBirthDate(date: string) {
     const now = moment();
     const birthdate = moment(date);
-    return (now.diff(birthdate, 'years') >= 18);
+    return (now.diff(birthdate, 'years') >= this.ageMin__toReset);
   }
 
   private actionUpOrDownTriggered() {
     this.nbActions++;
-    if (this.nbActions === 30) {
+    if (this.nbActions === this.nbActions__toUpdateX) {
       this.nbActions = 0;
       this.x = this.x * 2;
     }
   }
 
-  private setCurrentValue(currentCounter : number){
-    this.currentCounter = currentCounter;
-    localStorage.setItem('counter', JSON.stringify(this.currentCounter))
-    this.counterSubject.next(this.currentCounter)
+  private setCurrentValue(currentCounter : number) {
+    localStorage.setItem(this.localStorage__counter, JSON.stringify(currentCounter))
+    this.counterSubject.next(currentCounter)
   }
 }
