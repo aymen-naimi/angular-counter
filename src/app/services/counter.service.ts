@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
+import * as isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+dayjs.extend(isSameOrBefore);
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +34,8 @@ export class CounterService {
   }
 
   validateBirthDate(date: string) {
-    const now = moment();
-    const birthdate = moment(date);
+    const now = dayjs();
+    const birthdate = dayjs(date);
     return (now.diff(birthdate, 'years') >= this.ageMin__toReset);
   }
 

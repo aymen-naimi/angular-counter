@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "moment"
+              "dayjs"
             ],
             "outputPath": "dist/papernest-test",
             "index": "src/index.html",
